@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Detalle del Proyecto | Portafolio de José Gramajo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+  <!-- Wrapper -->
+  <div id="wrapper" class="fade-in">
+
+    <!-- Header -->
+    <header id="header">
+      <a href="index.html" class="logo">Portafolio</a>
+    </header>
+
+    <!-- Nav -->
+    <nav id="nav">
+      <ul class="links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="generic.html">Proyectos</a></li>
+        <li><a href="elements.html">Contacto</a></li>
+      </ul>
+      <ul class="icons">
+        <li><a href="https://github.com/jgramajo-2023053" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+      <section class="post">
+        <header class="major">
+          <h1 id="titulo">Cargando...</h1>
+        </header>
+
+        <span class="image main">
+          <img id="imagenPrincipal" src="" alt="Imagen del proyecto" />
+        </span>
+
+        <p id="descripcion">Cargando descripción...</p>
+
+        <h3>Capturas del Proyecto</h3>
+        <div id="capturas" class="row">
+          <!-- Capturas dinámicas -->
+        </div>
+        <h3>Repositorio(s)</h3>
+        <div id="githubLinks">
+            
+        </div>
+      </section>
+    </div>
+
+    <!-- Copyright -->
+    <div id="copyright">
+      <ul><li>&copy; José Gramajo</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+    </div>
+
+  </div>
+
+  <!-- Scripts de plantilla -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery.scrollex.min.js"></script>
+  <script src="assets/js/jquery.scrolly.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- Script de carga dinámica -->
+  <script src="js/proyectos.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const data = proyectos[id];
+
+    if (data) {
+        document.getElementById("titulo").textContent = data.titulo;
+        document.getElementById("imagenPrincipal").src = data.imagen;
+        document.getElementById("descripcion").textContent = data.descripcion;
+        //document.getElementById("githubLink").href = data.github;
+        const githubDiv = document.getElementById("githubLinks");
+        data.github.forEach(repo => {
+            const a = document.createElement("a");
+            a.href = repo.url;
+            a.target = "_blank";
+            a.className = "button";
+            a.style.marginRight = "1rem";
+            a.textContent = repo.nombre;
+            githubDiv.appendChild(a);
+        });
+
+        const capturasDiv = document.getElementById("capturas");
+        data.capturas.forEach(img => {
+            const imgElem = document.createElement("img");
+            imgElem.src = img;
+            imgElem.className = "col-6"; // muestra dos por fila
+            imgElem.style.marginBottom = "1rem";
+            capturasDiv.appendChild(imgElem);
+        });
+    } else {
+      document.querySelector("#main").innerHTML = "<h2>Proyecto no encontrado</h2>";
+    }
+  </script>
+
+</body>
+</html>
